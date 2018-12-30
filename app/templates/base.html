@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href="{{url_for('static',filename='css/fontawesome-all.css')}} " rel="stylesheet" />
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href="{{url_for('static',filename='css/bootstrap.css')}} " rel="stylesheet" />
+    <link href="{{url_for('static',filename='css/font-awesome.css')}} " rel="stylesheet" />
+    <link href="{{url_for('static',filename='css/basic.css')}} " rel="stylesheet" />
+    <link href="{{url_for('static',filename='css/custom.css')}} " rel="stylesheet" />
+    <link href="{{url_for('static',filename='css/bootstrap-fileupload.min.css')}} " rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/dropzone.css')}}" rel="stylesheet">
+    <script src="{{url_for('static',filename='js/jquery-1.10.2.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+    <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+    {% if title %}
+        <title>{{title}} - annotaiton</title>
+    {% else %}
+        <title></title>
+    {% endif %}
+    {% block head %}{% endblock %}
+    <script src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+    <script>
+        $(function(){
+            //当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失
+            $(function () {
+                $(window).scroll(function(){
+                    if ($(window).scrollTop()>100){
+                        $("#back-to-top").fadeIn(1500);
+                    }
+                    else
+                    {
+                        $("#back-to-top").fadeOut(1500);
+                    }
+                });
+
+                //当点击跳转链接后，回到页面顶部位置
+                $("#back-to-top").click(function(){
+                    //$('body,html').animate({scrollTop:0},1000);
+                    if ($('html').scrollTop()) {
+                        $('html').animate({ scrollTop: 0 }, 1000);
+                        return false;
+                    }
+                    $('body').animate({ scrollTop: 0 }, 1000);
+                    return false;
+                });
+            });
+        });
+    </script>
+</head>
+<body style="background-color:#2a8dcb">
+<nav class="navbar navbar-default"  role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="background-color:white" href="#">NEU标注系统</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/index">首页</a></li>
+                <li><a href="/login">登陆</a></li>
+                <li><a href="/logout">登出</a></li>
+
+                {% if type == 'annotator'%}
+                    <li><a href="/task">任务</a></li>
+                    <li><a href="/personal">个人中心</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }} </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+<div id="footer-sec">
+    <p class="pull-right" id="back-to-top"><a style="color:white" href="#">返回顶部</a></p>
+    <p>网站地图</p>
+    <p>版权声明 <a style="color: white" href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+    <p>作者 <a style="color: white" href="www.zhoufangtong.com">周芳同</a></p>
+</div>
+</body>
+</html>

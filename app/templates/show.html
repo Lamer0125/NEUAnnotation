@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% block head %}
+    <link rel='stylesheet prefetch' href='/static/css/slick.css' xmlns="http://www.w3.org/1999/html">
+    <link rel="stylesheet" href="/static/css/style.css">
+{% endblock %}
+{% block content %}
+    <h1 style="color: white;">标注页面</h1>
+    {% if relation==False %}
+        {%  if datatype == 'photo'%}
+            {%  for data in datas.items %}
+                <div class="container" style="background-color: white;border:#b7dbf1 5px solid;vertical-align:center;border-radius: 12px;">
+                <div class="row" style="margin-top:5%;margin-bottom: 5%">
+                    <div class="col-md-3">
+                        <!--图片占据盒子左侧的1/3-->
+                        <img class="img-rounded" src="{{ data.url }}" width="200px" height="200px"/>
+                    </div>
+                    <div class="col-md-9">
+                        <!--其他内容占据右侧的2/3-->
+                        <h2>标注选项</h2>
+                        <form  method="get">
+                            <input type="hidden" name="task" value="{{ taskname }}">
+                            <input type="hidden" name="page" value="{{ page}}">
+                            <input type="hidden" name = "url" value="{{ data.url }}">
+                            <div class="row">
+                                {% if select =='single' %}
+                                    {% for tag in tags %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="tag" value="{{ tag }}">{{ tag }}<br>
+                                            </label>
+                                        </div>
+                                    {%  endfor%}
+                                {% else %}
+                                    {% for index in range(tags|length)%}
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="tag{{index}}" value="{{ tags[index]}}">{{ tags[index] }}<br>
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <input type="submit" name="submit" class="btn btn-default">
+                        </form>
+                    </div>
+                </div>
+            {% endfor%}
+        {% if prev_url%}
+            <li class="previous disabled"><a href="{{prev_url}}">&larr;前一页</a></li>
+        {% endif %} |
+        {% if next_url %}
+            <li class="next"><a href="{{ next_url }}">后一页&rarr;</a></li>
+        {% endif %}
+        </div>
+        {% else %}
+
+            {% for index in range(contents|length) %}
+                <div class="container" style="background-color: white;border:#b7dbf1 5px solid;vertical-align:center;border-radius: 12px;">
+                <div class="row" style="margin-top:5%;margin-bottom: 5%">
+                    <div class="col-md-3">
+                        <textarea disabled="disabled" style="width: 200px;height: 250px " > {% print contents[index] %}</textarea>
+                    </div>
+                    <div class="col-md-9">
+                        <h2>标注选项</h2>
+                        <form  method="get">
+                            <input type="hidden" name="task" value="{{ taskname }}">
+                            <input type="hidden" name="page" value="{{ page}}">
+                            <input type="hidden" name = "url" value="{{ datas.items[index].url }}">
+                            <div class="row">
+                                {% if select =='single' %}
+                                    {% for tag in tags %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="tag" value="{{ tag }}">{{ tag }}<br>
+                                            </label>
+                                        </div>
+                                    {%  endfor%}
+                                {% else %}
+                                    {% for index in range(tags|length)%}
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="tag{{index}}" value="{{ tags[index]}}">{{ tags[index] }}<br>
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <input type="submit" name="submit" class="btn btn-default">
+                        </form>
+
+                    </div>
+                </div>
+            {% endfor %}
+            {% if prev_url%}
+                <li class="previous disabled"><a href="{{prev_url}}">&larr;前一页</a></li>
+            {% endif %} |
+            {% if next_url %}
+                <li class="next"><a href="{{ next_url }}">后一页&rarr;</a></li>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% else %}
+        <div class="container" style="background-color: white;border:#b7dbf1 5px solid;vertical-align:center;border-radius: 12px;">
+            <div class="row" style="margin-top:5%;margin-bottom: 5%">
+                <div class="col-md-3">
+                    {% if datatype1 =='photo' %}
+                        <img class="img-rounded" src="{{ datas[0].url }}" width="200px" height="200px"/><br>
+                        {% if datatype2=='photo' %}
+                            <img class="img-rounded" src="{{ datas[1].url }}" width="200px" height="200px"/>
+                        {% else %}
+
+                            <textarea disabled="disabled" style="width: 200px;height: 250px ">  {% print contents[0].encode("utf-8") %}</textarea>
+                        {% endif %}
+                    {% else %}
+                        <textarea disabled="disabled" style="width: 200px;height: 250px "> {% print contents[0] %}</textarea><br>
+                        {% if datatype2 =='photo' %}
+                            <img class="img-rounded" src="{{ datas[1].url }}" width="200px" height="200px"/>
+                        {% else %}
+                            <textarea disabled="disabled" style="width: 200px;height: 250px "> {% print contents[1].encode("utf-8") %}</textarea>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="col-md-9">
+                    <h2>标注选项</h2>
+                    <form  method="get">
+                        <input type="hidden" name="task" value="{{ taskname }}">
+                        <input type="hidden" name="page" value="{{ page}}">
+                        <div class="row">
+                            {% if select =='single' %}
+                                {% for tag in tags %}
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="tag" value="{{ tag }}">{{ tag }}<br>
+                                        </label>
+                                    </div>
+                                {%  endfor%}
+                            {% else %}
+                                {% for index in range(tags|length)%}
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="tag{{index}}" value="{{ tags[index]}}">{{ tags[index] }}<br>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <input type="submit" name="submit" class="btn btn-default">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}

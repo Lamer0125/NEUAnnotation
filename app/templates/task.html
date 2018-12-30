@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+    <h1 style="color: white">任务广场</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <!--左侧任务广场-->
+                <div style="border: #b7dbf1 5px solid;background-color:white;border-radius: 12px;">
+                    {% for index in range(Task|length) %}
+                        <div class="row" style="margin-top:2%;margin-bottom: 2%;vertical-align: middle">
+                            <div class="col-md-3" align="center">
+                                <div style="border: #2a8dcb 4px solid;border-radius: 50px;height:100px;width: 100px; vertical-align:middle;display:table-cell;color: #2a8dcb;font-size: 20px">
+                                    <!--用来显示积分的-->
+                                    {{ Task[index].bonus }}分
+                                </div>
+                            </div>
+                            <div class="col-md-9" style="vertical-align:middle;">
+                                <a style="color: black;font-size:25px" href="{{"/show?task="+Task[index].taskname+"&page=1"}}" >{{ Task[index].taskname }}</a>
+                                <p style="margin-right: 30px">
+                                    <!--显示任务的介绍-->
+                                    {{ Task[index].introduce }}
+                                </p>
+                                <div style="display: inline">参加:<span style="color:#2a8dcb;">3人</span></div>
+                                <span>|</span>
+                                <div style="display: inline">截止:<span style="color:#2a8dcb;">{{ Task[index].expiration }}</span></div>
+                            </div>
+                        </div>
+                    {% endfor%}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!--右侧热门任务-->
+                <div style="border:#b7dbf1 5px solid;border-radius: 12px;background-color:white" align="center">
+                    <h2>可能感兴趣的任务</h2>
+                    {% for recom in recommond_task %}
+                        <a href="{{"/show?task="+recom[0]+"&page=1"}}" class="thumbnail">
+                            <img src="{{ recom[1] }}" width="150px" height="200px"/>
+                        </a>
+                        <p style="font-size: large">{{recom[0]}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

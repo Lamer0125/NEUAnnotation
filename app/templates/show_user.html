@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row " style="padding-top: 50px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    任务名: {{taskname}}
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="lead text-center">原始数据</p >
+                        </div>
+                        <div class="col-md-6">
+                            <p class="lead text-center">标注结果</p >
+                        </div>
+                    </div>
+                    {% if relation == True %}
+                        <div class="col-md-6">
+                            <div class="row">
+                                {% if datatype1 =='photo' %}
+                                    <div class="row">
+                                    <div class="col-md-12">
+                                    <a href=" " class="thumbnail">
+                                        <img src="{{datas[0].url}}"  class="img-responsive " alt=""/>
+                                    </a >
+                                    </div>
+                                    </div>
+                                    {% if datatype2=='photo' %}
+                                    <div class="row">
+                                    <div class="col-md-12">
+                                    <a href="#" class="thumbnail">
+                                        <img src="{{datas[1].url}}"  class="img-responsive " alt=""/>
+                                    </a >
+                                    </div>
+
+                                    </div>
+                                    {% else %}
+                                    <div class="col-md-6">
+                                        <textarea disabled="disabled" style="width: 550px;height: 250px "> {{contents[0]}}</textarea>
+                                    </div>
+                                    {% endif %}
+                                {%else%}
+                                    <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea disabled="disabled" style="width: 550px;height: 250px "> {{contents[0]}}</textarea>
+                                    </div>
+                                    </div>
+                                    {% if datatype2 =='photo' %}
+                                    <a href="#" class="thumbnail">
+                                        <img src="{{datas[1].url}}"  class="img-responsive " alt=""/>
+                                    </a >
+                                    {%else%}
+                                    <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea disabled="disabled" style="width:550px;height: 250px "> {{contents[1]}}</textarea>
+                                    </div>
+                                    </div>
+                                    {%endif%}
+                                {%endif%}
+                            </div>
+                        </div>
+                        {% if select == 'single' %}
+                        <div class="col-md-6">
+                            <div class="panel-danger simple-table">
+                                <div class="alert alert-danger">
+                                    <ul class="plan">
+                                        <li class="price-simple"><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {%else%}
+                        <div class="col-md-6">
+                            <div class="panel-danger simple-table">
+                                <div class="alert alert-danger">
+                                    <ul class="plan">
+                                    {% for tag in tag[index] %}
+                                        {% if loop.index == 1%}
+                                            <li class="price-simple"><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                        {% elif loop.index == 2%}
+                                            <li><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                        {%else%}
+                                            <li><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                        {%endif%}
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {%endif%}
+                    {%else%}
+                        {% if datatype =='photo' %}
+                            {% for index in range(datas|length) %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ datas[index].url }}" class="img-responsive " alt=""/>
+                                        </a >
+                                    </div>
+                                    {% if select == 'single' %}
+                                        <div class="col-md-6">
+                                            <div class="panel-danger simple-table">
+                                                <div class="alert alert-danger">
+                                                    <ul class="plan">
+                                                        <li class="price-simple"><i class="fa fa-thumbs-o-up"></i><strong>{{tag[index]}}</strong></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-6">
+                                            <div class="panel-danger simple-table">
+                                                <div class="alert alert-danger">
+                                                    <ul class="plan">
+                                                        {% for tag in tag[index] %}
+                                                            {% if loop.index == 1%}
+                                                                <li class="price-simple"><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                                            {% elif loop.index == 2%}
+                                                                <li><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                                            {%else%}
+                                                                <li><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                                            {%endif%}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {%endfor%}
+                        {%else%}
+                            {% for index in range(datas|length) %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <textarea disabled="disabled" style="width: 550px;height: 250px " >{{contents[index]}}</textarea>
+                                    </div>
+                                    {% if select == 'single' %}
+                                        <div class="col-md-6">
+                                            <div class="panel-danger simple-table">
+                                                <div class="alert alert-danger">
+                                                    <ul class="plan">
+                                                        <li class="price-simple"><i class="fa fa-thumbs-o-up"></i><strong>{{tag[index]}}</strong></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-6">
+                                            <div class="panel-danger simple-table">
+                                                <div class="alert alert-danger">
+                                                    <ul class="plan">
+                                                        {% for tag in tag[index] %}
+                                                            {% if loop.index == 1%}
+                                                                <li class="price-simple"><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                                            {% elif loop.index == 2%}
+                                                                <li><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                                            {%else%}
+                                                                <li><i class="fa fa-thumbs-o-up"></i><strong>{{tag}}</strong></li>
+                                                            {%endif%}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {%endfor%}
+                        {%endif%}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

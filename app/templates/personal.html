@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <!-- 左侧 -->
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">个人主页</div>
+            <div class="panel-body">
+                <img src="{{ url_for('static',filename='pic/icon.jpeg') }}" class="img-responsive img-rounded img-thumbnail" alt="Me">
+                <p class="text-center text-primary" style="font-size: x-large">{{ username }}</p>
+                <address>
+                    <span class="glyphicon glyphicon-sort-by-order" title="排名"> #{{ rank }}</span><br>
+                    <span class="glyphicon glyphicon-phone" title="积分"> {{ bonus }}分</span><br>
+                    <span class="glyphicon glyphicon-envelope" title="Email"> <code>{{ email }}</code></span>
+                </address>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel panel-heading">常参与主题</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span class="text-muted">图片</span>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span class="text-success">文本</span>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-success active" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span class="text-info">关系类</span>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-info active" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span class="text-warning">非关系类</span>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-warning active" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 右侧 -->
+    <div class="col-sm-9">
+        <div class="jumbotron">
+            <p class="text-left small">
+                爱学习、爱编程、爱咖啡可乐、爱挑战、爱专研、爱打游戏、爱晚起、也爱工作到深夜.我擅长技术、崇尚简单和懒惰。我神秘而孤僻，沉默而爱憎分明。
+                <br>Don't panic I‘m a programmer
+            </p>
+        </div>
+
+        <div class="panel-group" id="accoradion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        历史标注
+                    </div>
+                    <div id="collapseTwo">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                {% for task in task_list %}
+                                {% if loop.index%4==1 %}
+                                <li class="list-group-item list-group-item-success">
+                                    <div class="row">
+                                        <div class="col-sm-4"><a href="{{"/showuser?task="+task.taskname}}">{{ task.taskname }}</a><br></div>
+                                    </div>
+                                </li>
+                                {%elif loop.index%4==2%}
+                                <li class="list-group-item list-group-item-warning">
+                                    <div class="row">
+                                        <div class="col-sm-4"><a href="{{"/showuser?task="+task.taskname}}">{{ task.taskname }}</a><br></div>
+                                    </div>
+                                </li>
+                                {%elif loop.index%4==3%}
+                                <li class="list-group-item list-group-item-info">
+                                    <div class="row">
+                                        <div class="col-sm-4"><a href="{{"/showuser?task="+task.taskname}}">{{ task.taskname }}</a><br></div>
+                                    </div>
+                                </li>
+                                {%elif loop.index%4==0%}
+                                <li class="list-group-item list-group-item-danger">
+                                    <div class="row">
+                                        <div class="col-sm-4"><a href="{{"/showuser?task="+task.taskname}}">{{ task.taskname }}</a><br></div>
+                                    </div>
+                                </li>
+                                {%endif%}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

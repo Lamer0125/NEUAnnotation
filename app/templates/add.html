@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <div class="user-img-div">
+                        <img src="static/img/user.png" class="img-thumbnail" />
+
+                        <div class="inner-text">
+                            {{ username }}
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+                    <a href=" "><span class="glyphicon glyphicon-upload"></span> 上传</a >
+                </li>
+                <li>
+                    <a href="/add"><span class="glyphicon glyphicon-plus"></span> 添加</a >
+                </li>
+                <li>
+                    <a href="/delete"><span class="glyphicon glyphicon-trash"></span> 删除</a >
+                </li>
+                <li>
+                    <a href="/task1"><span class="glyphicon glyphicon-search"></span> 查看</a >
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-head-line">增加数据</h1>
+                    <h1 class="page-subhead-line">向一个已有任务补充新的数据</h1>
+
+                </div>
+            </div>
+            <!-- /. ROW  -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        <div class="container" style="background-color: white;border:#b7dbf1 5px solid;border-radius: 12px; width:50%;height:300px;">
+                            <form method="POST" enctype="multipart/form-data">
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12">
+                                        <!--任务名称-->
+                                        {{ form.taskname.label }}
+                                        {{ form.taskname(class="form-control input-lg")}}
+                                    </div>
+                                </div>
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12">
+                                        <!--选择文件-->
+                                        {{ form.hidden_tag()}}
+                                        {{ form.file.label}}
+                                        {{ form.file(multiple='multiple',class="form-control input-lg")}}
+                                        {% for error in form.file.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row" style='margin-left:5px;margin-top:15px'>
+                                    {{ form.submit(class='btn btn-primary')}}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

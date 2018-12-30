@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <div class="user-img-div">
+                        <img src="static/img/user.png" class="img-thumbnail" />
+                        <div class="inner-text">
+                            {{ username }}
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+                <a href=" "><span class="glyphicon glyphicon-upload"></span> 上传</a >
+            </li>
+            <li>
+                <a href="/add"><span class="glyphicon glyphicon-plus"></span> 添加</a >
+            </li>
+            <li>
+                <a href="/delete"><span class="glyphicon glyphicon-trash"></span> 删除</a >
+            </li>
+            <li>
+                <a href="/task1"><span class="glyphicon glyphicon-search"></span> 查看</a >
+            </li>
+            </ul>
+        </div>
+    </div>
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-head-line">上传数据</h1>
+                    <h1 class="page-subhead-line">发布一个新的任务到任务广场</h1>
+
+                </div>
+            </div>
+            <!-- /. ROW  -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        <div class="container" style="background-color: white;border:#b7dbf1 5px solid;border-radius: 12px; width:50% ;">
+
+                            <form method="POST" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12">
+                                        <!--选择文件-->
+                                        {{ form.file.label}}
+                                        {{ form.file(multiple='multiple',class="form-control input-lg") }}
+                                        {% for error in form.file.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12">
+                                        <!--任务名-->
+                                        {{ form.taskname.label}}
+                                        {{ form.taskname(placeholder='请输入任务名',class='form-control')}}
+                                        {% for error in form.taskname.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                 <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12">
+                                        <!--任务介绍-->
+                                        {{ form.introduce.label}}
+                                        {{ form.introduce(placeholder='请输入任务介绍',class='form-control')}}
+                                        {% for error in form.introduce.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12">
+                                        <!--任务积分-->
+                                        {{ form.bonus.label}}
+                                        {{ form.bonus(placeholder='请输入0到5之间的任务积分值',class='form-control')}}
+                                        {% for error in form.bonus.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12 form-group">
+                                        <!--上传标注类别-->
+                                        {{ form.tag.label}}
+                                        {{ form.tag(placeholder="请以英文','分隔开标签",class='form-control')}}
+                                    </div>
+                                </div>
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12 form-group">
+                                        <!--单选/多选-->
+                                        {{ form.select.label }}
+                                        <div class="radio">
+                                            {{ form.select(class='')}}
+                                            {% for error in form.select.errors %}
+                                                <span style="color: red;">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12 form-group">
+                                        {{ form.relation.label }}
+                                        {{ form.relation(style={height:'100px'})}}
+                                        {% for error in form.relation.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row" style='margin-top:15px'>
+                                    <div class="col-md-12 form-group">
+                                        {{ form.expiration.label }}
+                                        {{ form.expiration(class='form-control',placeholder='yyyy-mm-dd')}}
+                                        {% for error in form.expiration.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <p>{{ form.submit(class='btn btn-primary')}}</p>
+                            </form>
+                            <script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
